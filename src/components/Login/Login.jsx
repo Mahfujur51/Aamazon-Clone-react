@@ -1,19 +1,25 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase-config';
 import "../Login/Login.css";
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const signIn=(e)=>{
+    const register= async(e)=>{
         e.preventDefault();
-      
+        try {
+            const user = await createUserWithEmailAndPassword(auth,email, password);
+            console.log(user);
+        } catch (error) {}
+    
 
     }
-    const register=(e)=>{
-       e.preventDefault();
-       // console.log(email,password); 
-
+    const signIn = async(e)=>{
+       
+      
     }
     return (
         <div className='login'>
@@ -31,7 +37,7 @@ const Login = () => {
 
                 </form>
                 <p>By Signing-in you agree to Amazon Terms and condition & Sale. Please See our Privacy Notice, Our Cookies Notice and Our Interest based Ads Notice</p>
-                <button className='login_registerButton' onClick={register}>Create Your Amazon Account</button>
+                <button className='login_registerButton'  onClick={register}>Create Your Amazon Account</button>
             </div>
         </div>
     )
